@@ -30,20 +30,16 @@ const server = app.listen(PORT, () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:5173",
-  
+    origin: process.env.SOCKETORIGIN
   },
 });
 
-// const cors = require('cors');
-
-// const corsOptions = {
-//   origin: 'http://localhost:5173',
-//   methods: ['GET', 'POST'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// };
-
-// app.use(cors(corsOptions));
+// (server , {
+//   pingTimeout : 60000,
+//   cors : {
+//     origin : "http://localhost:3000",
+//   }
+// })
 
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
