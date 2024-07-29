@@ -32,6 +32,13 @@ const PORT = process.env.PORT || 4000;
   console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
 });
 
+
+app.all('/', function (q, p, next) {
+  p.header("Access-Control-Allow-Origin", "*");
+  p.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 // const io = require("socket.io")
 const io = new Server(server, {
   cors: {
