@@ -11,8 +11,8 @@ import { Server } from "socket.io";
 
 connectDB();
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 // Available Routes
 
@@ -28,9 +28,9 @@ const server = app.listen(PORT, () => {
 
 // const io = require("socket.io")
 const io = new Server(server, {
-  pingTimeout: 60000,
   cors: {
-    origin: process.env.SOCKETORIGIN
+    origin: process.env.SOCKETORIGIN,
+        credentials: true,
   },
 });
 
