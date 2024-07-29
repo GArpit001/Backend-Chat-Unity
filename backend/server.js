@@ -8,11 +8,15 @@ import "dotenv/config";
 import colors from "colors";
 import connectDB from "./config/db.js";
 import { Server } from "socket.io";
+import http from "http"
 
 connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const server = http.createServer(app);
+
 
 // Available Routes
 
@@ -22,7 +26,9 @@ app.use("/api/message", messageController);
 
 const PORT = process.env.PORT || 4000;
 
-const server = app.listen(PORT, () => {
+
+
+ app.listen(PORT, () => {
   console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
 });
 
@@ -30,16 +36,12 @@ const server = app.listen(PORT, () => {
 const io = new Server(server, {
   cors: {
     origin: process.env.SOCKETORIGIN,
+    methods: ["GET", "POST"],
         credentials: true,
   },
 });
 
-// (server , {
-//   pingTimeout : 60000,
-//   cors : {
-//     origin : "http://localhost:3000",
-//   }
-// })
+
 
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
