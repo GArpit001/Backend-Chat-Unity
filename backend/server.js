@@ -13,12 +13,10 @@ import {createServer} from "http";
 connectDB();
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(cors));
 
 
 const server = createServer(app)
-
-
 
 
 // Available Routes
@@ -35,7 +33,7 @@ const PORT = process.env.PORT || 4000;
 // const io = require("socket.io")
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://66b09dd838c4bfb5ff52d925--unrivaled-tartufo-30fcb5.netlify.app",
     credentials: true,
   },
 });
