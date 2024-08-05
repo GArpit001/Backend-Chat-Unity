@@ -13,7 +13,7 @@ import {createServer} from "http";
 connectDB();
 const app = express();
 app.use(express.json());
-app.use(cors(cors));
+app.use(cors());
 
 
 const server = createServer(app)
