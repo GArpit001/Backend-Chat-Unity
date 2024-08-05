@@ -33,7 +33,7 @@ const PORT = process.env.PORT || 4000;
 // const io = require("socket.io")
 const io = new Server(server, {
   cors: {
-    origin: "https://66b09dd838c4bfb5ff52d925--unrivaled-tartufo-30fcb5.netlify.app",
+    origin: "https://chat-unity.netlify.app/chat",
     credentials: true,
   },
 });
