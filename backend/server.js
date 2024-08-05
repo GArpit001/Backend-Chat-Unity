@@ -8,26 +8,29 @@ import "dotenv/config";
 import colors from "colors";
 import connectDB from "./config/db.js";
 import { Server } from "socket.io";
-// import http from "http";
+import {createServer} from "http";
 
 connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// const server = http.createServer(app);
+
+const server = createServer(app)
+
+
+
 
 // Available Routes
-
 app.use("/api/auth", auth);
 app.use("/api/chat", chatController);
 app.use("/api/message", messageController);
 
 const PORT = process.env.PORT || 4000;
 
-const server = app.listen(PORT, () => {
-  console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
-});
+//  app.listen(PORT, () => {
+//   console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
+// });
 
 // const io = require("socket.io")
 const io = new Server(server, {
@@ -73,3 +76,8 @@ io.on("connection", (socket) => {
 });
 
 // const io = new Server(httpServer, { cors: { origin: "https://example.com" } });
+
+
+server.listen(5000, () => {
+    console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
+  })
