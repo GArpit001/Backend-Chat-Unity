@@ -8,15 +8,14 @@ import "dotenv/config";
 import colors from "colors";
 import connectDB from "./config/db.js";
 import { Server } from "socket.io";
-import http from "http"
+// import http from "http";
 
 connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const server = http.createServer(app);
-
+// const server = http.createServer(app);
 
 // Available Routes
 
@@ -26,35 +25,23 @@ app.use("/api/message", messageController);
 
 const PORT = process.env.PORT || 4000;
 
-
-
- app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Your Server has been started PORT NO. ${PORT} `.yellow.bold);
-});
-
-
-app.all('/', function (q, p, next) {
-  p.header("Access-Control-Allow-Origin", "*");
-  p.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
 });
 
 // const io = require("socket.io")
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
-        credentials: true,
+    credentials: true,
   },
 });
-
-
 
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
   socket.on("setup", (userData) => {
     socket.join(userData._id);
-    console.log(userData)
+    console.log(userData);
     // console.log(userData._id)
     socket.emit("connected");
   });
